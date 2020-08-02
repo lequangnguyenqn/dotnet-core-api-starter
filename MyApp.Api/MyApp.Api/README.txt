@@ -1,0 +1,1 @@
+﻿Add-Migration InitialCreate -Project MyApp.Infrastructure -Context MyAppContext 
