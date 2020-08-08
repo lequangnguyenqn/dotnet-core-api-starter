@@ -49,6 +49,7 @@ namespace MyApp.Api
                     catch (Exception ex)
                     {
                         Log.Error(ex, "An error occurred while seeding the database.");
+                        throw;
                     }
                 }
 

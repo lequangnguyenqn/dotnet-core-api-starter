@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,7 +6,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MyApp.Application.Configuration.Data;
+using MyApp.Domain;
+using MyApp.Domain.Customers;
+using MyApp.Infrastructure.Database;
 using MyApp.Infrastructure.Domain;
+using MyApp.Infrastructure.Domain.Customers;
+using System.Linq;
+using System.Reflection;
 
 namespace MyApp.Api
 {
@@ -28,6 +36,13 @@ namespace MyApp.Api
             services.AddControllers();
 
             services.AddSwaggerGen();
+
+            services.AddScoped<ISqlConnectionFactory>(p => new SqlConnectionFactory(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            var assembly = Assembly.GetEntryAssembly().GetReferencedAssemblies().FirstOrDefault(i => i.Name == "MyApp.Application");
+            services.AddMediatR(Assembly.Load(assembly));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

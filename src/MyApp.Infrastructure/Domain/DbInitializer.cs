@@ -1,8 +1,10 @@
-﻿using MyApp.Domain.Customers;
+﻿using Microsoft.EntityFrameworkCore.Internal;
+using MyApp.Domain.Customers;
 using MyApp.Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace MyApp.Infrastructure.Domain
 {
@@ -10,45 +12,57 @@ namespace MyApp.Infrastructure.Domain
     {
         public static void Initialize(MyAppContext context)
         {
-            context.Customers.Add(new Customer
+            if(!context.Customers.Any(p => p.Email == "info@microsoft.com"))
             {
-                Id = Guid.NewGuid(),
-                Email = "info@microsoft.com",
-                Name = "Microsoft",
-                CreatedDate = DateTime.UtcNow,
-                LastUpdated = DateTime.UtcNow
-            });
+                context.Customers.Add(new Customer
+                {
+                    Id = Guid.NewGuid(),
+                    Email = "info@microsoft.com",
+                    Name = "Microsoft",
+                    CreatedDate = DateTime.UtcNow,
+                    LastUpdated = DateTime.UtcNow
+                });
+            }
 
-            context.Customers.Add(new Customer
+            if (!context.Customers.Any(p => p.Email == "info@google.com"))
             {
-                Id = Guid.NewGuid(),
-                Email = "info@google.com",
-                Name = "Google",
-                CreatedDate = DateTime.UtcNow,
-                LastUpdated = DateTime.UtcNow
-            });
+                context.Customers.Add(new Customer
+                {
+                    Id = Guid.NewGuid(),
+                    Email = "info@google.com",
+                    Name = "Google",
+                    CreatedDate = DateTime.UtcNow,
+                    LastUpdated = DateTime.UtcNow
+                });
+            }
 
             context.SaveChanges();
 
-            context.Users.Add(new User
+            if (!context.Users.Any(p => p.Email == "qc@gmail.com"))
             {
-                Id = Guid.NewGuid(),
-                Email = "qc@gmail.com",
-                FirstName = "QC",
-                LastName = "Manager",
-                CreatedDate = DateTime.UtcNow,
-                LastUpdated = DateTime.UtcNow
-            });
+                context.Users.Add(new User
+                {
+                    Id = Guid.NewGuid(),
+                    Email = "qc@gmail.com",
+                    FirstName = "QC",
+                    LastName = "Manager",
+                    CreatedDate = DateTime.UtcNow,
+                    LastUpdated = DateTime.UtcNow
+                });
+            }
 
-            context.Users.Add(new User
+            if (!context.Users.Any(p => p.Email == "dev@gmail.com"))
             {
-                Id = Guid.NewGuid(),
-                Email = "dev@gmail.com",
-                FirstName = "DEV",
-                LastName = "Manager",
-                CreatedDate = DateTime.UtcNow,
-                LastUpdated = DateTime.UtcNow
-            });
+                context.Users.Add(new User
+                {
+                    Id = Guid.NewGuid(),
+                    Email = "dev@gmail.com",
+                    FirstName = "DEV",
+                    LastName = "Manager",
+                    CreatedDate = DateTime.UtcNow,
+                    LastUpdated = DateTime.UtcNow
+                });
+            }
 
             context.SaveChanges();
         }

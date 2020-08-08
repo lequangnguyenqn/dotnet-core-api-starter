@@ -35,7 +35,7 @@ namespace MyApp.Application.Customers.Add
 
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new CustomerDto { Id = customer.Id };
+            return new CustomerDto { Id = customer.Id, Email = customer.Email, Name = customer.Name };
         }
     }
 }
