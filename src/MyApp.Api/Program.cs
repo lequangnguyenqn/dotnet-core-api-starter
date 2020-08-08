@@ -11,9 +11,9 @@ using Serilog;
 
 namespace MyApp.Api
 {
-    public class Program
+    public static class Program
     {
-        public static IConfiguration Configuration { get; } = new ConfigurationBuilder()
+        private static IConfiguration Configuration { get; } = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .AddJsonFile(AppsettingsFileNameWithEnvironment(), optional: true)
@@ -68,11 +68,13 @@ namespace MyApp.Api
             }
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>()
+                    .UseSerilog()
+                    .UseConfiguration(Configuration);
                 });
         private static string AppsettingsFileNameWithEnvironment()
         {

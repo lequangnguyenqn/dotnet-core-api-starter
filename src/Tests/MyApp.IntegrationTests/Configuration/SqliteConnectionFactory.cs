@@ -1,27 +1,27 @@
-﻿using MyApp.Application.Configuration.Data;
+﻿using Microsoft.Data.Sqlite;
+using MyApp.Application.Configuration.Data;
 using System;
 using System.Data;
-using Microsoft.Data.SqlClient;
 
-namespace MyApp.Infrastructure.Database
+namespace MyApp.IntegrationTests.Configuration
 {
-    public class SqlConnectionFactory : ISqlConnectionFactory, IDisposable
+    public class SqliteConnectionFactory : ISqlConnectionFactory, IDisposable
     {
         // To detect redundant calls
         private bool _disposed = false;
         private readonly string _connectionString;
         private IDbConnection _connection;
 
-        public SqlConnectionFactory(string connectionString)
+        public SqliteConnectionFactory(string connectionString)
         {
             _connectionString = connectionString;
         }
 
         public IDbConnection GetOpenConnection()
         {
-            if (_connection == null || this._connection.State != ConnectionState.Open)
+            if (_connection == null || _connection.State != ConnectionState.Open)
             {
-                _connection = new SqlConnection(_connectionString);
+                _connection = new SqliteConnection(_connectionString);
                 _connection.Open();
             }
 
@@ -46,7 +46,7 @@ namespace MyApp.Infrastructure.Database
             _disposed = true;
         }
 
-        ~SqlConnectionFactory()
+        ~SqliteConnectionFactory()
         {
             // Finalizer calls Dispose(false)
             Dispose(false);

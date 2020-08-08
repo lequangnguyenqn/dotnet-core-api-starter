@@ -1,9 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Internal;
-using MyApp.Domain.Customers;
+﻿using MyApp.Domain.Customers;
 using MyApp.Domain.Users;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace MyApp.Infrastructure.Domain

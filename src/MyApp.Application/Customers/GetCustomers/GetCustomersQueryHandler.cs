@@ -21,7 +21,7 @@ namespace MyApp.Application.Customers.GetCustomers
             const string sql = "SELECT " +
                                "[Customer].[Id], " +
                                "[Customer].[Email] " +
-                               "FROM dbo.Customers AS [Customer] ";
+                               "FROM Customers AS [Customer] ";
             var orders = await connection.QueryAsync<CustomerDto>(sql);
 
             return new PagedList<CustomerDto>

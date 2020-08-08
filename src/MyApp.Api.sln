@@ -3,13 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApp.Api", "MyApp.Api\MyApp.Api.csproj", "{EDC4DD16-1974-48F2-BE25-477BF1216A14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Api", "MyApp.Api\MyApp.Api.csproj", "{EDC4DD16-1974-48F2-BE25-477BF1216A14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApp.Application", "MyApp.Application\MyApp.Application.csproj", "{17AF25E3-5C8B-45D4-956A-2F90D5369FAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Application", "MyApp.Application\MyApp.Application.csproj", "{17AF25E3-5C8B-45D4-956A-2F90D5369FAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApp.Domain", "MyApp.Domain\MyApp.Domain.csproj", "{0DFEC232-4414-41FA-94FC-FAE264F80CA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Domain", "MyApp.Domain\MyApp.Domain.csproj", "{0DFEC232-4414-41FA-94FC-FAE264F80CA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApp.Infrastructure", "MyApp.Infrastructure\MyApp.Infrastructure.csproj", "{AEB670B8-7F4C-4177-A914-64D6DFA5A5F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Infrastructure", "MyApp.Infrastructure\MyApp.Infrastructure.csproj", "{AEB670B8-7F4C-4177-A914-64D6DFA5A5F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3D489C1D-BE08-41F5-A5A9-AC53D9BCA5F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApp.IntegrationTests", "Tests\MyApp.IntegrationTests\MyApp.IntegrationTests.csproj", "{792F26B5-8749-47DD-8EDF-5C3E58F6B62C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B4D2E407-A4F7-451E-8393-6963A1A70661}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +42,16 @@ Global
 		{AEB670B8-7F4C-4177-A914-64D6DFA5A5F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEB670B8-7F4C-4177-A914-64D6DFA5A5F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEB670B8-7F4C-4177-A914-64D6DFA5A5F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{792F26B5-8749-47DD-8EDF-5C3E58F6B62C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{792F26B5-8749-47DD-8EDF-5C3E58F6B62C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{792F26B5-8749-47DD-8EDF-5C3E58F6B62C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{792F26B5-8749-47DD-8EDF-5C3E58F6B62C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{792F26B5-8749-47DD-8EDF-5C3E58F6B62C} = {3D489C1D-BE08-41F5-A5A9-AC53D9BCA5F6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3531E5EA-6B3F-4CCF-A833-85F3C40E8B8E}

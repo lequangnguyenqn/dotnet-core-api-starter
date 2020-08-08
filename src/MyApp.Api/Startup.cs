@@ -1,30 +1,33 @@
+using FluentValidation;
+using Hellang.Middleware.ProblemDetails;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using MyApp.Application.Configuration.Data;
-using MyApp.Domain;
-using MyApp.Domain.Customers;
-using MyApp.Infrastructure.Database;
+using MyApp.Api.Exceptions;
+using MyApp.Application.Configuration.Validation;
+using MyApp.Infrastructure.Configuration;
 using MyApp.Infrastructure.Domain;
-using MyApp.Infrastructure.Domain.Customers;
-using System.Linq;
-using System.Reflection;
+using System;
+using System.Net.Http;
 
 namespace MyApp.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
-        public IConfiguration Configuration { get; }
+        private IWebHostEnvironment Environment { get; }
+        private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -37,12 +40,16 @@ namespace MyApp.Api
 
             services.AddSwaggerGen();
 
-            services.AddScoped<ISqlConnectionFactory>(p => new SqlConnectionFactory(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddProblemDetails(Environment);
 
-            var assembly = Assembly.GetEntryAssembly().GetReferencedAssemblies().FirstOrDefault(i => i.Name == "MyApp.Application");
-            services.AddMediatR(Assembly.Load(assembly));
+            services.AddDataAccessModule(Configuration);
+
+            services.AddMediatR(Assemblies.Application);
+
+            //Add FluentValidation
+            services.Add(new ServiceDescriptor(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>), ServiceLifetime.Transient));
+            services.AddValidatorsFromAssemblies(new[] { Assemblies.Application });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,10 +61,7 @@ namespace MyApp.Api
             }
             else
             {
-                app.UseExceptionHandler(new ExceptionHandlerOptions
-                {
-                    ExceptionHandler = new CustomExceptionHandler(loggerFactory).Invoke
-                });
+                app.UseProblemDetails();
                 app.UseHsts();
             }
 
