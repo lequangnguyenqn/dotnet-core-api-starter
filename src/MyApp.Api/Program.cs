@@ -13,7 +13,7 @@ namespace MyApp.Api
 {
     public static class Program
     {
-        private static IConfiguration Configuration { get; } = new ConfigurationBuilder()
+        private static IConfiguration configuration { get; } = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .AddJsonFile(AppsettingsFileNameWithEnvironment(), optional: true)
@@ -23,8 +23,8 @@ namespace MyApp.Api
         public static int Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(Configuration)
-                .Enrich.WithCorrelationIdHeader("Correlation-Id")
+                .ReadFrom.Configuration(configuration)
+                .Enrich.WithCorrelationIdHeader()
                 .Enrich.FromLogContext()
                 .CreateLogger();
 
@@ -74,7 +74,7 @@ namespace MyApp.Api
                 {
                     webBuilder.UseStartup<Startup>()
                     .UseSerilog()
-                    .UseConfiguration(Configuration);
+                    .UseConfiguration(configuration);
                 });
         private static string AppsettingsFileNameWithEnvironment()
         {

@@ -8,9 +8,9 @@ namespace MyApp.Api.Exceptions
     {
         public ValidationProblemDetails(ValidationException exception)
         {
-            Title = exception.Message;
+            Title = "Validation failed";
             Status = StatusCodes.Status400BadRequest;
-            Detail = exception.StackTrace;
+            Detail = exception.Message;
             Type = exception.HelpLink;
         }
     }

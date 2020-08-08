@@ -16,6 +16,9 @@ namespace MyApp.IntegrationTests.Configuration
     {
         protected async Task<HttpClient> CreateClient()
         {
+            //Dapper using Sqlite unable to cast object of type 'System.string' to type 'System.Guid'
+            //So we need to re-write the mapping
+            //https://github.com/StackExchange/Dapper/issues/718
             SqlMapper.AddTypeHandler(new GuidTypeHandler());
 
             var hostBuilder = new HostBuilder()

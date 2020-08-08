@@ -35,7 +35,7 @@ namespace MyApp.Application.Configuration.Validation
 
             if (failures.Any())
             {
-                _logger.LogInformation($"Validate Request: {JsonConvert.SerializeObject(request)}");
+                _logger.LogError($"Validation failed: {JsonConvert.SerializeObject(request)}");
                 throw new ValidationException(failures);
             }
 
