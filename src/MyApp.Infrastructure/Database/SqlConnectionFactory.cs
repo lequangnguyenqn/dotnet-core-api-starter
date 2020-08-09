@@ -28,6 +28,11 @@ namespace MyApp.Infrastructure.Database
             return _connection;
         }
 
+        public string GetSQLPaging(int currentPage, int pageSize)
+        {
+            return $"OFFSET {(currentPage - 1) * pageSize} ROWS FETCH NEXT {pageSize} ROWS ONLY; ";
+        }
+
         public void Dispose()
         {
             Dispose(true);

@@ -1,4 +1,4 @@
 ﻿[*.cs]
 
-# S3376: Attribute, EventArgs, and Exception type names should end with the type being extended
-dotnet_diagnostic.S3376.severity = none
+# S3925: "ISerializable" should be implemented correctly
+dotnet_diagnostic.S3925.severity = none

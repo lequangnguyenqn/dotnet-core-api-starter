@@ -2,6 +2,7 @@
 using MediatR;
 using MyApp.Application.Configuration.Data;
 using MyApp.Application.Configuration.Queries;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,16 +19,23 @@ namespace MyApp.Application.Customers.GetCustomers
         public async Task<PagedList<CustomerDto>> Handle(GetCustomersQuery request, CancellationToken cancellationToken)
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
-            const string sql = "SELECT " +
-                               "[Customer].[Id], " +
-                               "[Customer].[Email] " +
-                               "FROM Customers AS [Customer] ";
-            var orders = await connection.QueryAsync<CustomerDto>(sql);
+            string query = "SELECT " +
+                            "[Customer].[Id], " +
+                            "[Customer].[Email] " +
+                            "FROM Customers AS [Customer] " +
+                            "WHERE [Customer].IsDeleted = 0 " +
+                            "ORDER BY [Customer].CreatedDate DESC " +
+                            _sqlConnectionFactory.GetSQLPaging(request.CurrentPage, request.PageSize) +
 
-            return new PagedList<CustomerDto>
+                            "SELECT COUNT(*) " +
+                            "FROM Customers AS [Customer] " +
+                            "WHERE [Customer].IsDeleted = 0";
+            var multi = await connection.QueryMultipleAsync(query);
+
+            return new PagedList<CustomerDto>(request)
             {
-                Items = orders,
-                Paging = request.Paging
+                Items = multi.Read<CustomerDto>().ToList(),
+                TotalCount = multi.ReadFirst<int>()
             };
         }
     }

@@ -28,6 +28,11 @@ namespace MyApp.IntegrationTests.Configuration
             return _connection;
         }
 
+        public string GetSQLPaging(int currentPage, int pageSize)
+        {
+            return $"LIMIT {pageSize} OFFSET {(currentPage - 1) * pageSize} ; ";
+        }
+
         public void Dispose()
         {
             Dispose(true);

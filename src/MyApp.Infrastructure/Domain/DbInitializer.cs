@@ -11,26 +11,12 @@ namespace MyApp.Infrastructure.Domain
         {
             if(!context.Customers.Any(p => p.Email == "info@microsoft.com"))
             {
-                context.Customers.Add(new Customer
-                {
-                    Id = Guid.NewGuid(),
-                    Email = "info@microsoft.com",
-                    Name = "Microsoft",
-                    CreatedDate = DateTime.UtcNow,
-                    LastUpdated = DateTime.UtcNow
-                });
+                context.Customers.Add(new Customer("info@microsoft.com", "Microsoft"));
             }
 
             if (!context.Customers.Any(p => p.Email == "info@google.com"))
             {
-                context.Customers.Add(new Customer
-                {
-                    Id = Guid.NewGuid(),
-                    Email = "info@google.com",
-                    Name = "Google",
-                    CreatedDate = DateTime.UtcNow,
-                    LastUpdated = DateTime.UtcNow
-                });
+                context.Customers.Add(new Customer("info@google.com", "Google"));
             }
 
             context.SaveChanges();
