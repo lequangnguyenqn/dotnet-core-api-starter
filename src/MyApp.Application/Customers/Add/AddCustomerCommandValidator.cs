@@ -32,8 +32,8 @@ namespace MyApp.Application.Customers.Add
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
-            const string sql = "SELECT TOP 1 1 " +
-                               "FROM [dbo].[Customers] AS [Customer] " +
+            const string sql = "SELECT 1 " +
+                               "FROM [Customers] AS [Customer] " +
                                "WHERE [Customer].[Email] = @Email";
             var customersNumber = await connection.QuerySingleOrDefaultAsync<int?>(sql,
                             new

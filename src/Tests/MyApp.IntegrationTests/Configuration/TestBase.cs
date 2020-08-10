@@ -51,8 +51,9 @@ namespace MyApp.IntegrationTests.Configuration
 
                 var sp = services.BuildServiceProvider();
                 var context = sp.GetRequiredService<MyAppContext>();
+                //Re-create DB for every test
+                context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
-                DbInitializer.Initialize(context);
             });
 
             // Create and start up the host

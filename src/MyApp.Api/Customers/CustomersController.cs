@@ -53,6 +53,10 @@ namespace MyApp.Api.Customers
         public async Task<IActionResult> GetCustomer([FromRoute] GetCustomeDetailsQuery request)
         {
             var customer = await _mediator.Send(request);
+            if(customer == null)
+            {
+                return NotFound();
+            }
 
             return Ok(customer);
         }

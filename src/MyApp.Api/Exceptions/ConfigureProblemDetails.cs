@@ -30,6 +30,7 @@ namespace MyApp.Api.Exceptions
                     logger.Error(ex, "Exception Details:");
                     return false;
                 };
+                                
                 // This will map NotImplementedException to the 501 Not Implemented status code.
                 options.MapToStatusCode<NotImplementedException>(StatusCodes.Status501NotImplemented);
 

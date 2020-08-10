@@ -31,37 +31,37 @@
             <summary>
             The email of the customer
             </summary>
-            <example>youremail@example.com</example>
+            <example>terry.le@example.com</example>
         </member>
         <member name="P:MyApp.Application.Customers.Add.AddCustomerCommand.Name">
             <summary>
             The name of the customer
             </summary>
-            <example>John Smith</example>
+            <example>Terry Le</example>
         </member>
         <member name="P:MyApp.Application.Customers.GetCustomers.CustomerDetailsDto.Email">
             <summary>
             The email of the customer
             </summary>
-            <example>youremail@example.com</example>
+            <example>terry.le@example.com</example>
         </member>
         <member name="P:MyApp.Application.Customers.GetCustomers.CustomerDetailsDto.Name">
             <summary>
             The name of the customer
             </summary>
-            <example>John Smith</example>
+            <example>Terry Le</example>
         </member>
         <member name="P:MyApp.Application.Customers.GetCustomers.CustomerDto.Email">
             <summary>
             The email of the customer
             </summary>
-            <example>youremail@example.com</example>
+            <example>terry.le@example.com</example>
         </member>
         <member name="P:MyApp.Application.Customers.GetCustomers.CustomerDto.Name">
             <summary>
             The name of the customer
             </summary>
-            <example>John Smith</example>
+            <example>Terry Le</example>
         </member>
     </members>
 </doc>
