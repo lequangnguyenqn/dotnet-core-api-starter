@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MyApp.Application</name>
+    </assembly>
+    <members>
+        <member name="P:MyApp.Application.Configuration.Queries.PagedList`1.CurrentPage">
+            <summary>
+            The current page number
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:MyApp.Application.Configuration.Queries.PagedList`1.PageSize">
+            <summary>
+            The number of items per page
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:MyApp.Application.Configuration.Queries.PagedList`1.TotalCount">
+            <summary>
+            The total number of data.
+            </summary>
+            <example>50</example>
+        </member>
+        <member name="P:MyApp.Application.Configuration.Queries.PagedList`1.Items">
+            <summary>
+            The list of items
+            </summary>
+        </member>
+        <member name="P:MyApp.Application.Customers.Add.AddCustomerCommand.Email">
+            <summary>
+            The email of the customer
+            </summary>
+            <example>youremail@example.com</example>
+        </member>
+        <member name="P:MyApp.Application.Customers.Add.AddCustomerCommand.Name">
+            <summary>
+            The name of the customer
+            </summary>
+            <example>John Smith</example>
+        </member>
+        <member name="P:MyApp.Application.Customers.GetCustomers.CustomerDetailsDto.Email">
+            <summary>
+            The email of the customer
+            </summary>
+            <example>youremail@example.com</example>
+        </member>
+        <member name="P:MyApp.Application.Customers.GetCustomers.CustomerDetailsDto.Name">
+            <summary>
+            The name of the customer
+            </summary>
+            <example>John Smith</example>
+        </member>
+        <member name="P:MyApp.Application.Customers.GetCustomers.CustomerDto.Email">
+            <summary>
+            The email of the customer
+            </summary>
+            <example>youremail@example.com</example>
+        </member>
+        <member name="P:MyApp.Application.Customers.GetCustomers.CustomerDto.Name">
+            <summary>
+            The name of the customer
+            </summary>
+            <example>John Smith</example>
+        </member>
+    </members>
+</doc>

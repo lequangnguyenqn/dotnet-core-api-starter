@@ -1,13 +1,12 @@
 ﻿using MediatR;
-using MyApp.Domain.Customers;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace MyApp.Application.Customers.Add
 {
-    public class AddCustomerNotificationHandler : INotificationHandler<AddCustomerEvent>
+    public class AddCustomerNotificationHandler : INotificationHandler<AddCustomerNotification>
     {
-        public async Task Handle(AddCustomerEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(AddCustomerNotification notification, CancellationToken cancellationToken)
         {
             // Send welcome e-mail message...
         }

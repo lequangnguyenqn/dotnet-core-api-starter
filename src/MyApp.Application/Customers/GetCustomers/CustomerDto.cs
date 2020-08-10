@@ -1,9 +1,10 @@
-﻿using MediatR;
+﻿using System;
 
-namespace MyApp.Application.Customers.Add
+namespace MyApp.Application.Customers.GetCustomers
 {
-    public class AddCustomerCommand : IRequest<AddCustomerRespone>
+    public class CustomerDto
     {
+        public Guid Id { get; set; }
         /// <summary>
         /// The email of the customer
         /// </summary>

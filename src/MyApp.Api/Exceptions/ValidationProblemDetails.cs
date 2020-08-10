@@ -11,7 +11,7 @@ namespace MyApp.Api.Exceptions
             Title = "Validation failed";
             Status = StatusCodes.Status400BadRequest;
             Detail = exception.Message;
-            Type = exception.HelpLink;
+            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1";
         }
     }
 }

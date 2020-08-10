@@ -4,6 +4,16 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Git\dotnet-core-api-starter\src\MyApp.Application\MyApp.Application.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Customers\IntegrationHandlers\**" />
+    <EmbeddedResource Remove="Customers\IntegrationHandlers\**" />
+    <None Remove="Customers\IntegrationHandlers\**" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="FluentValidation" Version="9.0.1" />
@@ -13,10 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyApp.Domain\MyApp.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Customers\IntegrationHandlers\" />
   </ItemGroup>
 
 </Project>

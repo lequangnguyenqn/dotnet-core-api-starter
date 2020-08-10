@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using MyApp.Api.Exceptions;
 using MyApp.Application.Configuration.Validation;
 using MyApp.Infrastructure.Configuration;
 using MyApp.Infrastructure.Domain;
 using Serilog;
+using System.IO;
 
 namespace MyApp.Api
 {
@@ -35,7 +35,15 @@ namespace MyApp.Api
 
             services.AddControllers();
 
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                //Include Descriptions from XML Comments
+                //https://github.com/domaindrivendev/Swashbuckle.AspNetCore#include-descriptions-from-xml-comments
+                var apiXML = Path.Combine(System.AppContext.BaseDirectory, "MyApp.Api.xml");
+                var applicationXML = Path.Combine(System.AppContext.BaseDirectory, "MyApp.Application.xml");
+                c.IncludeXmlComments(apiXML);
+                c.IncludeXmlComments(applicationXML);
+            });
 
             services.AddProblemDetails(_environment, Log.Logger);
 
@@ -52,24 +60,19 @@ namespace MyApp.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseProblemDetails();
-                app.UseHsts();
-            }
+            //Noted: we dont use DeveloperExceptionPage because we want to have same view when developing and running on servers
+            //You can see all exception details from Console log
+            app.UseProblemDetails();
+            app.UseHsts();
 
             app.UseHttpsRedirection();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Maintenance API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
             app.UseRouting();

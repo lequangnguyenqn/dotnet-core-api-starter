@@ -1,14 +1,19 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MyApp.Api.Exceptions;
 using MyApp.Application.Configuration.Queries;
-using MyApp.Application.Customers;
 using MyApp.Application.Customers.Add;
+using MyApp.Application.Customers.GetCustomerDetails;
 using MyApp.Application.Customers.GetCustomers;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 
 namespace MyApp.Api.Customers
 {
+    /// <summary>
+    /// Customers endpoints
+    /// </summary>
     [Route("api/customers")]
     [ApiController]
     public class CustomersController : Controller
@@ -24,22 +29,45 @@ namespace MyApp.Api.Customers
         /// Get customers.
         /// </summary>
         /// <returns>List of customers.</returns>
+        /// <response code="200">OK</response>
         [Route("")]
         [HttpGet]
         [ProducesResponseType(typeof(PagedList<CustomerDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetCustomerOrders([FromQuery] GetCustomersQuery request)
+        public async Task<IActionResult> GetCustomers([FromQuery] GetCustomersQuery request)
         {
-            var orders = await _mediator.Send(request);
+            var customers = await _mediator.Send(request);
 
-            return Ok(orders);
+            return Ok(customers);
         }
 
         /// <summary>
-        /// Register customer.
+        /// Get customer details.
         /// </summary>
+        /// <returns>Customer details.</returns>
+        /// <response code="200">OK</response>
+        /// <response code="404">Customer not found</response>
+        [Route("{CustomerId}")]
+        [HttpGet]
+        [ProducesResponseType(typeof(CustomerDetailsDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetCustomer([FromRoute] GetCustomeDetailsQuery request)
+        {
+            var customer = await _mediator.Send(request);
+
+            return Ok(customer);
+        }
+
+        /// <summary>
+        /// Create a customer.
+        /// </summary>
+        /// <response code="201">Customer created</response>
+        /// <response code="400">Customer has missing/invalid values</response>
+        /// <response code="500">Oops! Something went wrong. Please try again later.</response>
         [Route("")]
         [HttpPost]
-        [ProducesResponseType(typeof(CustomerDto), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(AddCustomerRespone), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(ProblemDetailsSwaggerResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetailsSwaggerResponse), (int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> AddCustomer([FromBody] AddCustomerCommand request)
         {
             var customer = await _mediator.Send(request);

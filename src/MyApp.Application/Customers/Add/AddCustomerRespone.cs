@@ -1,9 +1,8 @@
-﻿using MediatR;
-using System;
+﻿using System;
 
 namespace MyApp.Application.Customers.Add
 {
-    public class AddCustomerNotification : INotification
+    public class AddCustomerRespone
     {
         public Guid CustomerId { get; set; }
     }

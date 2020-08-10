@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyApp.Application.Customers.Add
 {
-    public class AddCustomerCommandHandler : IRequestHandler<AddCustomerCommand, CustomerDto>
+    public class AddCustomerCommandHandler : IRequestHandler<AddCustomerCommand, AddCustomerRespone>
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -22,17 +22,17 @@ namespace MyApp.Application.Customers.Add
             _mediator = mediator;
         }
 
-        public async Task<CustomerDto> Handle(AddCustomerCommand request, CancellationToken cancellationToken)
+        public async Task<AddCustomerRespone> Handle(AddCustomerCommand request, CancellationToken cancellationToken)
         {
             var customer = new Customer(request.Email, request.Name);
 
             await _customerRepository.AddAsync(customer);
 
-            await _mediator.Publish(new AddCustomerEvent(), cancellationToken);
-
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new CustomerDto { Id = customer.Id, Email = customer.Email, Name = customer.Name };
+            await _mediator.Publish(new AddCustomerNotification { CustomerId = customer.Id }, cancellationToken);
+
+            return new AddCustomerRespone { CustomerId = customer.Id };
         }
     }
 }
