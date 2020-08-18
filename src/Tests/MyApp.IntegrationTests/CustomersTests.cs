@@ -29,7 +29,7 @@ namespace MyApp.IntegrationTests
             var jsonString = await addCustomerResponse.Content.ReadAsStringAsync();
             var customer = JsonConvert.DeserializeObject<AddCustomerRespone>(jsonString);
             var getCustomerResponse = await client.GetAsync($"/api/customers/{customer.CustomerId}");
-            var getCustomersResponse = await client.GetAsync("/api/customers");
+            var getCustomersResponse = await client.GetAsync("/api/customers?Email=terry.le@example.com");
 
             Assert.Equal(HttpStatusCode.Created, addCustomerResponse.StatusCode);
             Assert.Equal(HttpStatusCode.OK, getCustomerResponse.StatusCode);

@@ -24,6 +24,7 @@ namespace MyApp.Application.Customers.GetCustomers
                             "[Customer].[Email] " +
                             "FROM Customers AS [Customer] " +
                             "WHERE [Customer].IsDeleted = 0 " +
+                            (string.IsNullOrEmpty(request.Email) ? "" : $" AND [Customer].Email = '{request.Email}' ") +
                             "ORDER BY [Customer].CreatedDate DESC " +
                             _sqlConnectionFactory.GetSQLPaging(request.CurrentPage, request.PageSize) +
 
