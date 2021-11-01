@@ -20,7 +20,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore src/MyApp.Api.sln
     - name: Build
-      run: dotnet build  src/**/*.csproj --no-restore
+      run: dotnet build  src/MyApp.Api.sln --no-restore
     - name: Unit Test
       run: dotnet test  src/**/*UnitTest*.csproj --no-build --verbosity normal
     - name: Integration Test
