@@ -20,6 +20,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet build **/*.csproj --no-restore
+    - name: Unit Test
+      run: dotnet test **/*UnitTest*.csproj --no-build --verbosity normal
+    - name: Integration Test
+      run: dotnet test **/*IntegrationTest*.csproj --no-build --verbosity normal
