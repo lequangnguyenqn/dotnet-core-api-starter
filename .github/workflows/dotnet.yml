@@ -18,10 +18,10 @@ jobs:
       with:
         dotnet-version: 3.1.x
     - name: Restore dependencies
-      run: dotnet restore **/*.csproj
+      run: dotnet restore src/MyApp.Api.sln
     - name: Build
-      run: dotnet build **/*.csproj --no-restore
+      run: dotnet build  src/**/*.csproj --no-restore
     - name: Unit Test
-      run: dotnet test **/*UnitTest*.csproj --no-build --verbosity normal
+      run: dotnet test  src/**/*UnitTest*.csproj --no-build --verbosity normal
     - name: Integration Test
-      run: dotnet test **/*IntegrationTest*.csproj --no-build --verbosity normal
+      run: dotnet test  src/**/*IntegrationTest*.csproj --no-build --verbosity normal
